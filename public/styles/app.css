@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+}
+body {
+  margin: 0;
+  background-color: hsl(0, 0%, 90%);
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  padding: 0%;
+  height: 100vh;
+  width: 100%;
+ text-align: center;
+ 
+}
+
+.login,.signup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width:95%;
+  min-width: 30%;
+height: 85vh;
+}
+form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+button{
+  color: white;
+  background-color: #4caf50;
+  border: none;
+  padding: 1rem;
+  margin: 1rem;
+ float: center;
+}
+
+input{
+  padding: 0.9rem;
+  width: 250px;
+  border: none;
+  align-self: center;
+}

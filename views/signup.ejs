@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="/styles/app.css" />
+<div className="signup">
+    <h1 style="margin-top: 1.5rem;">SignUp</h1>
+    <form method="POST" action="/signup">
+        <div style="text-align: left;">
+            <label>
+                <h3>Username</h3>
+            </label>
+            <input required type="text" name="username" placeholder="Enter Username" />
+            <label>
+                <h3>Email</h3>
+            </label>
+            <input type="email" required name="email" placeholder="Enter your email" />
+            <label>
+                <h3>Mobile</h3>
+            </label>
+            <input type="number" required placeholder="mobile" name="mobile" />
+            <label>
+                <h3>Name</h3>
+            </label>
+            <input required placeholder="name" name="name" />
+            <label>
+                <h3>Password</h3>
+            </label>
+            <input required name="password" type="password" placeholder="Enter Password" />
+        </div>
+        <button type="submit" style="align-self:center; padding:auto">SignUp</button>
+    </form>
+</div>
+
+<% if(error) { %>
+    <div style="padding:10px; color:rgb(206, 25, 25);">
+        <h4>
+            <%= error %>
+        </h4>
+    </div>
+    <% } %>
