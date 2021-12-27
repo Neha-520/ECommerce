@@ -5,7 +5,7 @@ require('dotenv').config();
 
 //connect database
 console.log(process.env.MONGO_URL)
-mongoose.connect("mongodb://localhost:27017/dogsDB", {
+mongoose.connect("mongodb://localhost:27017/ecommerce", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
