@@ -3,19 +3,30 @@ const mongoose = require("mongoose")
 const PORT = process.env.PORT || 5000;
 require('dotenv').config();
 
+//Handling uncaught exception
+process.on("uncaughtException", (err) => {
+    console.log(`Error: ${err.message}`)
+    console.log(`Shutting down the server due to Uncaught Exception`)
+    process.exit(1);
+})
 //connect database
-console.log(process.env.MONGO_URL)
+
 mongoose.connect("mongodb://localhost:27017/ecommerce", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
     .then(() => console.log("connected to MongoDB"))
-    .catch((err) => console.log(err))
 
 
-
-
-
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`server running at port ${PORT}`)
+})
+
+//Unhandled Promise Rejection
+process.on("unhandledRejection", (err) => {
+    console.log(`Error : ${err.message}`)
+    console.log(`Shutting down the server due to Unhandled Promise Rejection`)
+    server.close(() => {
+        process.exit(1);
+    });
 })
