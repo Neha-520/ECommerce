@@ -1,7 +1,9 @@
 const app = require('./app')
 const mongoose = require("mongoose")
+const dotenv = require("dotenv");
 const PORT = process.env.PORT || 5000;
-require('dotenv').config();
+
+dotenv.config({ path: "backend/config/config.env" });
 
 //Handling uncaught exception
 process.on("uncaughtException", (err) => {
@@ -11,7 +13,7 @@ process.on("uncaughtException", (err) => {
 })
 //connect database
 
-mongoose.connect("mongodb://localhost:27017/ecommerce", {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })

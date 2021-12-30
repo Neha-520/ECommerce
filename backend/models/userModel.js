@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function (next) {
 
-    //to prevent hashing of password twice i.e if user doesnt change password
+    //to prevent hashing of password twice i.e if user doesnt change password while updating
     if (!this.isModified("password")) {
         next();
     }
@@ -55,6 +55,11 @@ userSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
     })  //user id
+}
+
+//Compare password
+userSchema.methods.comparePassword = async function (eneteredPassword) {
+    return await bcrypt.compare(eneteredPassword, this.password)
 }
 
 module.exports = mongoose.model("User", userSchema);
