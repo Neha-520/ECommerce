@@ -79,3 +79,32 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
+//Create New Review or Update the review
+exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
+    const { rating, comment, productId } = req.body;
+
+    const review = {
+        user: req.user._id,
+        name: req.user.name,
+        rating: Number(rating),
+        comment,
+        productId
+    };
+
+    const product = await Product.findById(productId);
+
+    //checks if the user reviewing has already reviewed before 
+    const isReviewed = product.reviews.find(
+        (rev) => rev.user.toString() === req.user._id.toString()
+    )
+
+    if (isReviewed) {
+        product.review.forEach(rev => {
+            rev.rating = rating,
+                rev.comment = comment
+        })
+    } else {
+        product.reviews.push(review);
+    }
+
+})
