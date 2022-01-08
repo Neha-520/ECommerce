@@ -3,9 +3,7 @@ import { ReactNavbar } from 'overlay-navbar';
 
 const Header = () => {
     return (
-        <div>
-
-        </div>
+        <ReactNavbar />
     )
 }
 
