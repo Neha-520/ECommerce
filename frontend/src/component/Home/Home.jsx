@@ -20,7 +20,7 @@ const Home = () => {
         if (error) return alert.error(error)
 
         dispatch(getProduct())
-    }, [dispatch, error]);
+    }, [dispatch, error, alert]);
 
     return (
         <>
