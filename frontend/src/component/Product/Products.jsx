@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProduct } from '../../actions/productAction';
+import { clearErrors, getProduct } from '../../actions/productAction';
 import ProductCard from '../Home/ProductCard';
 import Loader from '../layout/Loader/Loader';
 import './Products.css'
 import Pagination from 'react-js-pagination'
 import Slider from '@mui/material/Slider';
 import { Typography } from '@mui/material';
+import { useAlert } from 'react-alert';
+
+const categories = [
+    "camera",
+    "OfficeTable",
+    "Tops",
+    "StudyTable",
+    "Mattress",
+    "Bedsheet",
+    "Coat",
+    "Blazers"
+];
 
 const Products = ({ match }) => {
-    const dispatch = useDispatch(getProduct);
+
+    const dispatch = useDispatch(getProduct, clearErrors);
+    const alert = useAlert();
 
     const { loading,
         products,
@@ -21,6 +35,7 @@ const Products = ({ match }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [price, setPrice] = useState([0, 25000])
+    const [category, setCategory] = useState("")
 
     const keyword = match.params.keyword
 
@@ -33,10 +48,14 @@ const Products = ({ match }) => {
     }
 
     useEffect(() => {
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
 
-        dispatch(getProduct(keyword, currentPage, price));
+        dispatch(getProduct(keyword, currentPage, price, category));
 
-    }, [dispatch, keyword, currentPage, price])
+    }, [dispatch, keyword, currentPage, price, category])
 
     let count = filteredProductsCount;
 
@@ -62,7 +81,28 @@ const Products = ({ match }) => {
                         min={0}
                         max={25000}
                     ></Slider>
+
+                    <Typography>Categories</Typography>
+                    <ul className='categoryBox'>
+                        {categories.map((category, i) => (
+                            <li className='category-link' key={i}
+                                onClick={() => setCategory(category)} >
+                                {category}
+                            </li>
+                        ))}
+                    </ul>
+
+                    <fieldset>
+                        <Typography component="legend">Ratings Above</Typography>
+                        <Slider
+                            aria-labelledby="continuous-slider"
+                            valueLabelDisplay="auto"
+                            min={0}
+                            max={5}
+                        />
+                    </fieldset>
                 </div>
+
 
                 {resultPerPage < count && (
                     <div className='paginationBox'>
