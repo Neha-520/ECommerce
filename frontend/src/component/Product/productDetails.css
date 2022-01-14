@@ -196,7 +196,7 @@
     color: rgba(0, 0, 0, 0.548);
 }
 
-@media screen and(max-width: 600px) {
+@media(max-width: 600px) {
     .ProductDetails {
         flex-direction: column;
         height: unset;

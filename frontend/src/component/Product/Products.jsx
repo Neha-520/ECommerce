@@ -5,15 +5,22 @@ import ProductCard from '../Home/ProductCard';
 import Loader from '../layout/Loader/Loader';
 import './Products.css'
 import Pagination from 'react-js-pagination'
-// import Slider from '@mui/core'
-// import Typography from '@mui/core'
+import Slider from '@mui/material/Slider';
+import { Typography } from '@mui/material';
 
 const Products = ({ match }) => {
     const dispatch = useDispatch(getProduct);
 
-    const { loading, products, error, productsCount, resultPerPage } = useSelector(state => state.products)
+    const { loading,
+        products,
+        error,
+        productsCount,
+        resultPerPage,
+        filteredProductsCount
+    } = useSelector(state => state.products)
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [price, setPrice] = useState([0, 25000])
 
     const keyword = match.params.keyword
 
@@ -21,11 +28,17 @@ const Products = ({ match }) => {
         setCurrentPage(e);
     }
 
+    const priceHandler = (event, newPrice) => {
+        setPrice(newPrice);
+    }
+
     useEffect(() => {
 
-        dispatch(getProduct(keyword, currentPage));
+        dispatch(getProduct(keyword, currentPage, price));
 
-    }, [dispatch, keyword, currentPage])
+    }, [dispatch, keyword, currentPage, price])
+
+    let count = filteredProductsCount;
 
     return (
         <>
@@ -40,10 +53,18 @@ const Products = ({ match }) => {
                 </div>
 
                 <div className='filterBox'>
-                    {/* <Slider></Slider> */}
+                    <Typography>Price</Typography>
+                    <Slider
+                        value={price}
+                        onChange={priceHandler}
+                        valueLabelDisplay='auto'
+                        aria-labelledby='range-slider'
+                        min={0}
+                        max={25000}
+                    ></Slider>
                 </div>
 
-                {resultPerPage < productsCount && (
+                {resultPerPage < count && (
                     <div className='paginationBox'>
                         {/* //default class pagination */}
                         <Pagination
