@@ -75,6 +75,8 @@
 
 .productCard > img {
     width: 14vmax;
+    height: 100%;
+    object-fit: cover;
 }
 .productCard > div {
     margin: 0.5vmax;
