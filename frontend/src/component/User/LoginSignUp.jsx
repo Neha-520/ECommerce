@@ -3,6 +3,7 @@ import './LoginSignup.css'
 import { MdMailOutline } from 'react-icons/md'
 import { MdLockOpen } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import { MdFace } from 'react-icons/md'
 
 const LoginSignUp = () => {
 
@@ -71,6 +72,58 @@ const LoginSignUp = () => {
                         <Link to="/password/forgot">Forgot Password ?</Link>
                         <input type="submit" value="Login" className="loginBtn" />
                     </form>
+
+                    {/* <form
+                        className="signUpForm"
+                        ref={registerTab}
+                        encType="multipart/form-data"
+                        onSubmit={registerSubmit}
+                    >
+                        <div className="signUpName">
+                             <MdFace/>
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                required
+                                name="name"
+                                value={name}
+                                onChange={registerDataChange}
+                            />
+                        </div>
+                        <div className="signUpEmail">
+                            <MdMailOutline />
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                required
+                                name="email"
+                                value={email}
+                                onChange={registerDataChange}
+                            />
+                        </div>
+                        <div className="signUpPassword">
+                            <MdLockOpen/>
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                required
+                                name="password"
+                                value={password}
+                                onChange={registerDataChange}
+                            />
+                        </div>
+
+                        <div id="registerImage">
+                            <img src={avatarPreview} alt="Avatar Preview" />
+                            <input
+                                type="file"
+                                name="avatar"
+                                accept="image/*"
+                                onChange={registerDataChange}
+                            />
+                        </div>
+                        <input type="submit" value="Register" className="signUpBtn" />
+                    </form> */}
                 </div>
             </div>
         </>
