@@ -1,11 +1,20 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import './LoginSignup.css'
 import { MdMailOutline } from 'react-icons/md'
 import { MdLockOpen } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import { MdFace } from 'react-icons/md'
 
-const LoginSignUp = () => {
+import { useDispatch, useSelector } from 'react-redux'
+import { login, register, clearErrors } from '../../actions/userAction'
+import { useAlert } from 'react-alert'
+import Loader from '../layout/Loader/Loader'
+
+const LoginSignUp = ({ history }) => {
+    const dispatch = useDispatch();
+    const alert = useAlert();
+
+    const { error, loading, isAuthenticated } = useSelector(state => state.user)
 
     const loginTab = useRef(null) //to access DOM elements
     const registerTab = useRef(null)
@@ -14,10 +23,60 @@ const LoginSignUp = () => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
-    const loginSubmit = () => {
-        console.log("Form Submitted")
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        password: "",
+    })
+    const { name, email, password } = user;
+
+    const [avatar, setAvatar] = useState("/Profile.png");
+    const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
+
+    const loginSubmit = (e) => {
+        e.preventDefault();
+        dispatch(login(loginEmail, loginPassword))
     }
 
+    const registerSubmit = (e) => {
+        e.preventDefault();
+
+        const myForm = new FormData();
+
+        myForm.set("name", name);
+        myForm.set("email", email);
+        myForm.set("password", password);
+        myForm.set("avatar", avatar);
+
+        dispatch(register(myForm))
+    }
+
+    const registerDataChange = (e) => {
+        if (e.target.name === "avatar") {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                //3 state 0,1,2 i.e initial,processing,done respectively
+                if (reader.readyState === 2) {
+                    setAvatarPreview(reader.result);
+                    setAvatar(reader.result);
+                }
+            }
+        } else {
+            setUser({ ...user, [e.target.name]: e.target.value });
+        }
+    }
+
+    useEffect(() => {
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+
+        if (isAuthenticated) {
+            history.push("/account")
+        }
+    }, [alert, error, dispatch, history, isAuthenticated])
 
     const switchTabs = (e, tab) => {
         if (tab === "login") {
@@ -37,95 +96,97 @@ const LoginSignUp = () => {
     }
 
     return (
-
-        <>
-            <div className='loginSignUpContainer'>
-                <div className='LoginSignUpBox'>
-                    <div>
-                        <div className='login_signUp_toggle'>
-                            <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
-                            <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
+        <>{loading ? <Loader /> : (
+            <>
+                <div className='loginSignUpContainer'>
+                    <div className='LoginSignUpBox'>
+                        <div>
+                            <div className='login_signUp_toggle'>
+                                <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
+                                <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
+                            </div>
+                            <button ref={switcherTab}></button>
                         </div>
-                        <button ref={switcherTab}></button>
+                        <form className='loginForm' ref={loginTab} onSubmit={loginSubmit}>
+                            <div className='loginEmail'>
+                                <MdMailOutline />
+                                <input
+                                    type="email"
+                                    placeholder='Email'
+                                    required
+                                    value={loginEmail}
+                                    onChange={(e) => setLoginEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className='loginPassword'>
+                                <MdLockOpen />
+                                <input
+                                    type="password"
+                                    placeholder='Password'
+                                    required
+                                    value={loginPassword}
+                                    onChange={(e) => setLoginPassword(e.target.value)}
+                                />
+                            </div>
+                            <Link to="/password/forgot">Forgot Password ?</Link>
+                            <input type="submit" value="Login" className="loginBtn" />
+                        </form>
+
+                        <form
+                            className="signUpForm"
+                            ref={registerTab}
+                            encType="multipart/form-data" //as we are also uploading img
+                            onSubmit={registerSubmit}
+                        >
+                            <div className="signUpName">
+                                <MdFace />
+                                <input
+                                    type="text"
+                                    placeholder="Name"
+                                    required
+                                    name="name"
+                                    value={name}
+                                    onChange={registerDataChange}
+                                />
+                            </div>
+                            <div className="signUpEmail">
+                                <MdMailOutline />
+                                <input
+                                    type="email"
+                                    placeholder="Email"
+                                    required
+                                    name="email"
+                                    value={email}
+                                    onChange={registerDataChange}
+                                />
+                            </div>
+                            <div className="signUpPassword">
+                                <MdLockOpen />
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    required
+                                    name="password"
+                                    value={password}
+                                    onChange={registerDataChange}
+                                />
+                            </div>
+
+                            <div id="registerImage">
+                                <img src={avatarPreview} alt="Avatar Preview" />
+                                <input
+                                    type="file"
+                                    name="avatar"
+                                    accept="image/*" //all image types
+                                    onChange={registerDataChange}
+                                />
+                            </div>
+                            <input type="submit" value="Register" className="signUpBtn" />
+                        </form>
                     </div>
-                    <form className='loginForm' ref={loginTab} onSubmit={loginSubmit}>
-                        <div className='loginEmail'>
-                            <MdMailOutline />
-                            <input
-                                type="email"
-                                placeholder='Email'
-                                required
-                                value={loginEmail}
-                                onChange={(e) => setLoginEmail(e.target.value)}
-                            />
-                        </div>
-                        <div className='loginPassword'>
-                            <MdLockOpen />
-                            <input
-                                type="password"
-                                placeholder='Password'
-                                required
-                                value={loginPassword}
-                                onChange={(e) => setLoginPassword(e.target.value)}
-                            />
-                        </div>
-                        <Link to="/password/forgot">Forgot Password ?</Link>
-                        <input type="submit" value="Login" className="loginBtn" />
-                    </form>
-
-                    {/* <form
-                        className="signUpForm"
-                        ref={registerTab}
-                        encType="multipart/form-data"
-                        onSubmit={registerSubmit}
-                    >
-                        <div className="signUpName">
-                             <MdFace/>
-                            <input
-                                type="text"
-                                placeholder="Name"
-                                required
-                                name="name"
-                                value={name}
-                                onChange={registerDataChange}
-                            />
-                        </div>
-                        <div className="signUpEmail">
-                            <MdMailOutline />
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                required
-                                name="email"
-                                value={email}
-                                onChange={registerDataChange}
-                            />
-                        </div>
-                        <div className="signUpPassword">
-                            <MdLockOpen/>
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                required
-                                name="password"
-                                value={password}
-                                onChange={registerDataChange}
-                            />
-                        </div>
-
-                        <div id="registerImage">
-                            <img src={avatarPreview} alt="Avatar Preview" />
-                            <input
-                                type="file"
-                                name="avatar"
-                                accept="image/*"
-                                onChange={registerDataChange}
-                            />
-                        </div>
-                        <input type="submit" value="Register" className="signUpBtn" />
-                    </form> */}
                 </div>
-            </div>
+            </>
+        )}
         </>
     )
 }
