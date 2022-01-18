@@ -93,6 +93,7 @@
 #registerImage > img {
     width: 3vmax;
     border-radius: 100%;
+    object-fit: cover;
 }
 
 #registerImage > input {
