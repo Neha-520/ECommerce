@@ -62,6 +62,7 @@ const LoginSignUp = ({ history }) => {
                     setAvatar(reader.result);
                 }
             }
+            reader.readAsDataURL(e.target.files[0]);
         } else {
             setUser({ ...user, [e.target.name]: e.target.value });
         }
