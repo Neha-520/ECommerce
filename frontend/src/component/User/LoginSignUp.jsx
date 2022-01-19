@@ -10,7 +10,7 @@ import { login, register, clearErrors } from '../../actions/userAction'
 import { useAlert } from 'react-alert'
 import Loader from '../layout/Loader/Loader'
 
-const LoginSignUp = ({ history }) => {
+const LoginSignUp = ({ history, location }) => {
     const dispatch = useDispatch();
     const alert = useAlert();
 
@@ -68,6 +68,8 @@ const LoginSignUp = ({ history }) => {
         }
     }
 
+    const redirect = location.search ? location.search.split("=")[1] : "/account"
+
     useEffect(() => {
         if (error) {
             alert.error(error);
@@ -75,7 +77,7 @@ const LoginSignUp = ({ history }) => {
         }
 
         if (isAuthenticated) {
-            history.push("/account")
+            history.push(redirect)
         }
     }, [alert, error, dispatch, history, isAuthenticated])
 
