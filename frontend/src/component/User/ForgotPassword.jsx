@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ForgotPassword.css";
+import "./Password.css";
 import Loader from "../layout/Loader/Loader";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,15 +42,15 @@ const ForgotPassword = () => {
             <Loader />
         ) : (<>
             <MetaData title="Forgot Password" />
-            <div className="forgotPasswordContainer">
-                <div className="forgotPasswordBox">
-                    <h2 className="forgotPasswordHeading">Forgot Password</h2>
+            <div className="PasswordContainer">
+                <div className="PasswordBox">
+                    <h2 className="PasswordHeading">Forgot Password</h2>
 
                     <form
-                        className="forgotPasswordForm"
+                        className="PasswordForm"
                         onSubmit={forgotPasswordSubmit}
                     >
-                        <div className="forgotPasswordEmail">
+                        <div>
                             <MailOutlineIcon />
                             <input
                                 type="email"
@@ -64,7 +64,7 @@ const ForgotPassword = () => {
                         <input
                             type="submit"
                             value="Send"
-                            className="forgotPasswordBtn"
+                            className="PasswordBtn"
                         />
                     </form>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ResetPassword.css";
+import "./Password.css";
 import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, resetPassword } from "../../actions/userAction";
@@ -50,12 +50,12 @@ const ResetPassword = ({ history, match }) => {
             ) : (
                 <>
                     <MetaData title="Change Password" />
-                    <div className="resetPasswordContainer">
-                        <div className="resetPasswordBox">
-                            <h2 className="resetPasswordHeading">Update Profile</h2>
+                    <div className="PasswordContainer">
+                        <div className="PasswordBox">
+                            <h2 className="PasswordHeading">Update Profile</h2>
 
                             <form
-                                className="resetPasswordForm"
+                                className="PasswordForm"
                                 onSubmit={resetPasswordSubmit}
                             >
                                 <div>
@@ -68,7 +68,7 @@ const ResetPassword = ({ history, match }) => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
-                                <div className="loginPassword">
+                                <div >
                                     <LockIcon />
                                     <input
                                         type="password"
@@ -81,7 +81,7 @@ const ResetPassword = ({ history, match }) => {
                                 <input
                                     type="submit"
                                     value="Update"
-                                    className="resetPasswordBtn"
+                                    className="PasswordBtn"
                                 />
                             </form>
                         </div>

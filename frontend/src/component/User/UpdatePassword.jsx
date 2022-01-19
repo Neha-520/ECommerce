@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./UpdatePassword.css";
+import "./Password.css";
 import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, updatePassword } from "../../actions/userAction";
@@ -54,15 +54,15 @@ const UpdatePassword = ({ history }) => {
             {loading ? <Loader /> : (
                 <>
                     <MetaData title="Change Password" />
-                    <div className="updatePasswordContainer">
-                        <div className="updatePasswordBox">
-                            <h2 className="updatePasswordHeading">Update Profile</h2>
+                    <div className="PasswordContainer">
+                        <div className="PasswordBox">
+                            <h2 className="PasswordHeading">Update Profile</h2>
 
                             <form
-                                className="updatePasswordForm"
+                                className="PasswordForm"
                                 onSubmit={updatePasswordSubmit}
                             >
-                                <div className="loginPassword">
+                                <div >
                                     <VpnKeyIcon />
                                     <input
                                         type="password"
@@ -73,7 +73,7 @@ const UpdatePassword = ({ history }) => {
                                     />
                                 </div>
 
-                                <div className="loginPassword">
+                                <div >
                                     <LockOpenIcon />
                                     <input
                                         type="password"
@@ -83,7 +83,7 @@ const UpdatePassword = ({ history }) => {
                                         onChange={(e) => setNewPassword(e.target.value)}
                                     />
                                 </div>
-                                <div className="loginPassword">
+                                <div >
                                     <LockIcon />
                                     <input
                                         type="password"
@@ -96,7 +96,7 @@ const UpdatePassword = ({ history }) => {
                                 <input
                                     type="submit"
                                     value="Change"
-                                    className="updatePasswordBtn"
+                                    className="PasswordBtn"
                                 />
                             </form>
                         </div>
