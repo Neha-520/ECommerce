@@ -18,7 +18,7 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 import EventIcon from "@material-ui/icons/Event";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import CheckOutSteps from './CheckOutSteps';
-// import { createOrder, clearErrors } from "../../actions/orderAction";
+import { createOrder, clearErrors } from "../../actions/orderActions";
 
 const Payment = ({ history }) => {
 
@@ -33,9 +33,23 @@ const Payment = ({ history }) => {
 
     const { shippingInfo, cartItems } = useSelector((state) => state.cart)
     const { user } = useSelector((state) => state.user);
+    const { error } = useSelector((state) => state.newOrder)
 
+    const paymentData = {
+        //stripe accepts money in paise
+        amount: Math.round(orderInfo.totalPrice * 100),
+    }
 
-    const submitHandler = (e) => {
+    const order = {
+        shippingInfo,
+        orderItems: cartItems,
+        itemsPrice: orderInfo.subtotal,
+        taxPrice: orderInfo.tax,
+        shippingPrice: orderInfo.shippingCharges,
+        totalPrice: orderInfo.totalPrice
+    };
+
+    const submitHandler = async (e) => {
         e.preventDefault();
 
         payBtn.current.disabled = true
@@ -47,10 +61,10 @@ const Payment = ({ history }) => {
                 },
             };
             const { data } = await axios.post(
-                `/api/v1/payment/process`,
+                "/api/v1/payment/process",
                 paymentData,
                 config
-            )
+            );
 
             const client_secret = data.client_secret
 
@@ -78,7 +92,19 @@ const Payment = ({ history }) => {
 
                 alert.error(result.error.message);
             } else {
+                if (result.paymentIntent.status === "succeeded") {
 
+                    order.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status
+                    }
+
+                    dispatch(createOrder(order));
+
+                    history.push("/success")
+                } else {
+                    alert.error("There's some issue while processing payment")
+                }
             }
 
         } catch (err) {
@@ -87,12 +113,12 @@ const Payment = ({ history }) => {
         }
     }
 
-    // useEffect(() => {
-    //     if (error) {
-    //         alert.error(error);
-    //         dispatch(clearErrors());
-    //     }
-    // }, [dispatch, error, alert]);
+    useEffect(() => {
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+    }, [dispatch, error, alert]);
 
     return (
         <>
