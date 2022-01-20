@@ -29,6 +29,11 @@ function MyOrders() {
             headerName: "Status",
             minWidth: 150,
             flex: 0.5,
+            cellClassName: (params) => {
+                return params.getValue(params.id, "status") === "Delivered"
+                    ? "greenColor"
+                    : "redColor";
+            }
         }, {
             field: "itemsQty",
             headerName: "Item Qty",
@@ -47,11 +52,27 @@ function MyOrders() {
             headerName: "Actions",
             minWidth: 150,
             type: "number",
+            sortable: false,
+            renderCell: (params) => {
+                return (
+                    <Link to={`/order/${params.getValue(params.id, "id")}`}>
+                        <LaunchIcon />
+                    </Link>
+                );
+            }
         }
     ];
-    const rows = [
+    const rows = []
 
-    ]
+    orders &&
+        orders.forEach((item, index) => {
+            rows.push({
+                itemsQty: item.orderItems.length,
+                id: item._id,
+                status: item.orderStatus,
+                amount: item.totalPrice
+            })
+        });
 
     useEffect(() => {
         if (error) {
@@ -77,7 +98,6 @@ function MyOrders() {
                         className="myOrdersTable"
                         autoHeight
                     />
-
                     <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>
                 </div>
             )}
