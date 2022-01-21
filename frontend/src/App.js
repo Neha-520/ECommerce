@@ -32,6 +32,7 @@ import OrderDetails from './component/Order/OrderDetails';
 import Dashboard from './component/admin/Dashboard';
 import ProductList from './component/admin/ProductList';
 import NewProduct from './component/admin/NewProduct';
+import UpdateProduct from './component/admin/UpdateProduct';
 
 function App() {
 
@@ -120,6 +121,12 @@ function App() {
         exact
         path="/admin/product"
         component={NewProduct} />
+
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/product/:id"
+        component={UpdateProduct} />
 
       <Footer />
     </Router>

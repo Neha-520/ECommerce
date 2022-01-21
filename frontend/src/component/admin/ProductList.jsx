@@ -9,7 +9,8 @@ import MetaData from "../layout/MetaData";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
-import { getAdminProduct, clearErrors } from '../../actions/productAction';
+import { getAdminProduct, clearErrors, deleteProduct } from '../../actions/productAction';
+import { DELETE_PRODUCT_RESET } from '../../constants/productConstants';
 
 const ProductList = ({ history }) => {
     const dispatch = useDispatch();
@@ -18,14 +19,31 @@ const ProductList = ({ history }) => {
 
     const { error, products } = useSelector((state) => state.products);
 
+    const { error: deleteError, isDeleted } = useSelector((state) => state.product);
+
+    const deleteProductHandler = (id) => {
+        dispatch(deleteProduct(id));
+    }
+
     useEffect(() => {
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
 
+        if (deleteError) {
+            alert.error(deleteError);
+            dispatch(clearErrors());
+        }
+
+        if (isDeleted) {
+            alert.success("Product Deleted Successfully");
+            history.push("/admin/dashboard");
+            dispatch({ type: DELETE_PRODUCT_RESET })
+        }
+
         dispatch(getAdminProduct())
-    }, [dispatch, alert, error]);
+    }, [dispatch, alert, error, deleteError, isDeleted, history]);
 
     const columns = [
         { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
@@ -65,9 +83,9 @@ const ProductList = ({ history }) => {
                         </Link>
 
                         <Button
-                        // onClick={() =>
-                        //     deleteProductHandler(params.getValue(params.id, "id"))
-                        // }
+                            onClick={() =>
+                                deleteProductHandler(params.getValue(params.id, "id"))
+                            }
                         >
                             <DeleteIcon />
                         </Button>
