@@ -23,7 +23,7 @@ const UserOptions = ({ user }) => {
     const dispatch = useDispatch();
 
     const dashboard = () => {
-        history.push("/dashboard")
+        history.push("/admin/dashboard")
     }
 
     const orders = () => {

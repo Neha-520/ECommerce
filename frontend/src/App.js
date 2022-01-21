@@ -29,6 +29,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import OrderSuccess from './component/Cart/OrderSuccess';
 import MyOrders from './component/Order/MyOrders';
 import OrderDetails from './component/Order/OrderDetails';
+import Dashboard from './component/admin/Dashboard';
 
 function App() {
 
@@ -99,6 +100,8 @@ function App() {
 
         <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
       </Switch>
+
+      <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
 
       <Footer />
     </Router>
