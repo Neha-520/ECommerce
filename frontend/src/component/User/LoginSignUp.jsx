@@ -79,7 +79,7 @@ const LoginSignUp = ({ history, location }) => {
         if (isAuthenticated) {
             history.push(redirect)
         }
-    }, [alert, error, dispatch, history, isAuthenticated])
+    }, [alert, error, dispatch, history, isAuthenticated, redirect])
 
     const switchTabs = (e, tab) => {
         if (tab === "login") {

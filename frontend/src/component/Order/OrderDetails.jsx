@@ -99,10 +99,10 @@ const OrderDetails = ({ match }) => {
                             <Typography>Order Items:</Typography>
                             <div className="orderDetailsCartItemsContainer">
                                 {order.orderItems &&
-                                    order.orderItems.map((item) => (
-                                        <div key={item.product}>
+                                    order.orderItems.map((item, i) => (
+                                        <div key={i}>
                                             <img src={item.image} alt="Product" />
-                                            <Link to={`/product/${item.product}`}>
+                                            <Link to={`/product/${item.productId}`}>
                                                 {item.name}
                                             </Link>{" "}
                                             <span>
