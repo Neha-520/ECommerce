@@ -52,7 +52,7 @@ const ProcessOrder = ({ history, match }) => {
             alert.success("Order Status Updated successfully");
             // history.push("/admin/orders");
             dispatch({ type: UPDATE_ORDER_RESET });
-            // history.push("/admin/orders");
+            history.push("/admin/orders");
         }
 
 
