@@ -36,6 +36,8 @@ import UpdateProduct from './component/admin/UpdateProduct';
 import OrderList from './component/admin/OrderList';
 import ProcessOrder from './component/admin/ProcessOrder';
 import UsersList from './component/admin/UsersList';
+import UpdateUser from './component/admin/UpdateUser';
+import ProductReviews from './component/admin/ProductReviews';
 
 function App() {
 
@@ -148,6 +150,18 @@ function App() {
         exact
         path="/admin/users"
         component={UsersList} />
+
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/user/:id"
+        component={UpdateUser} />
+
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/reviews"
+        component={ProductReviews} />
 
       <Footer />
     </Router>
