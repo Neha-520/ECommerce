@@ -35,6 +35,7 @@ import NewProduct from './component/admin/NewProduct';
 import UpdateProduct from './component/admin/UpdateProduct';
 import OrderList from './component/admin/OrderList';
 import ProcessOrder from './component/admin/ProcessOrder';
+import UsersList from './component/admin/UsersList';
 
 function App() {
 
@@ -141,6 +142,12 @@ function App() {
         exact
         path="/admin/order/:id"
         component={ProcessOrder} />
+
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/users"
+        component={UsersList} />
 
       <Footer />
     </Router>

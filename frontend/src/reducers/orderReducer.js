@@ -92,7 +92,7 @@ export const allOrdersReducer = (state = { orders: [] }, action) => {
     }
 }
 
-export const orderReducer = (state = {}, action) => {
+export const OrderReducer = (state = {}, action) => {
     switch (action.type) {
         case UPDATE_ORDER_REQUEST:
         case DELETE_ORDER_REQUEST:
@@ -148,20 +148,19 @@ export const orderDetailsReducer = (state = { order: {} }, action) => {
     switch (action.type) {
         case ORDER_DETAILS_REQUEST:
             return {
-                ...state,
-                loading: true
+                loading: true,
             }
 
         case ORDER_DETAILS_SUCCESS:
             return {
                 loading: false,
-                order: action.payload
+                order: action.payload,
             }
 
         case ORDER_DETAILS_FAIL:
             return {
                 loading: false,
-                error: action.payload
+                error: action.payload,
             }
 
         case CLEAR_ERRORS:
