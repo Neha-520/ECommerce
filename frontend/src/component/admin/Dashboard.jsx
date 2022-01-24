@@ -9,6 +9,26 @@ import Sidebar from "./Sidebar";
 import { getAdminProduct } from '../../actions/productAction';
 import { getAllOrders } from "../../actions/orderActions";
 import { getAllUsers } from "../../actions/userAction";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+} from 'chart.js';
+
+ChartJS.register(CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    ArcElement,
+    Title,
+    Tooltip,
+    Legend);
 
 const Dashboard = () => {
 
