@@ -52,7 +52,7 @@ const ProductList = ({ history }) => {
             field: "name",
             headerName: "Name",
             minWidth: 350,
-            flex: 1,
+            flex: 0.7,
         },
         {
             field: "stock",

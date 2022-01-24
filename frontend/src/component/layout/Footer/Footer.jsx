@@ -16,7 +16,7 @@ export const Footer = () => {
             <div className='midFooter'>
                 <h1>BlueMart</h1>
                 <p>High Quality is our first priority</p>
-                <p>Copyrights 2022 &copy; Neha</p>
+                <p>Copyrights 2023 &copy; Neha</p>
             </div>
 
             <div className='rightFooter'>

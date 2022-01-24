@@ -38,11 +38,11 @@
 }
 
 .myOrdersTable a:hover {
-    color: tomato;
+    color: #3d36a3;
 }
 
 .MuiDataGrid-columnHeader {
-    background-color: tomato;
+    background-color: #221d6d;
     padding: 1vmax !important;
 }
 

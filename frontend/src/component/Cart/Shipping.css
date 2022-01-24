@@ -63,7 +63,7 @@
 
 .shippingBtn {
     border: none;
-    background-color: tomato;
+    background-color: #3b32c0;
     color: white;
     font: 300 1vmax "Roboto";
     width: 100%;
@@ -75,7 +75,7 @@
 }
 
 .shippingBtn:hover {
-    background-color: rgb(179, 66, 46);
+    background-color: #221d6d;
 }
 
 @media (max-width: 600px) {
@@ -122,5 +122,5 @@
 
 .MuiStepConnector-active,
 .MuiStepConnector-completed {
-    background-color: tomato;
+    background-color: #3b32c0;
 }

@@ -11,12 +11,6 @@ import { useAlert } from 'react-alert';
 import MetaData from '../layout/MetaData';
 
 const categories = [
-    "camera",
-    "OfficeTable",
-    "Tops",
-    "StudyTable",
-    "Mattress",
-    "Bedsheet",
     "Coat",
     "Blazers"
 ];
@@ -67,7 +61,7 @@ const Products = ({ match }) => {
                 (
                     <>
                         <MetaData title="PRODUCTS -- BLUEMART" />
-                        <h2 className='productsHeading'>Products</h2>
+                        <h1 className='productsHeading'>Products</h1>
                         <div className='products'>
                             {
                                 products && products.map((p, i) => (

@@ -23,25 +23,26 @@ const Sidebar = () => {
                     <DashboardIcon /> Dashboard
                 </p>
             </Link>
-            <a>
-                <TreeView
-                    aria-label="file system navigator"
-                    defaultCollapseIcon={<ExpandMoreIcon />}
-                    defaultExpandIcon={<ImportExportIcon />}
-                >
-                    <TreeItem nodeId="1" label="Products">
 
-                        <Link to="/admin/products">
-                            <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
-                        </Link>
+            <TreeView
 
-                        <Link to="/admin/product">
-                            <TreeItem nodeId="3" label="Create" icon={<AddIcon />} />
-                        </Link>
+                style={{ marginLeft: "1.75rem", color: "gray" }}
+                aria-label="file system navigator"
+                defaultCollapseIcon={<ExpandMoreIcon />}
+                defaultExpandIcon={<ImportExportIcon />}
+            >
+                <TreeItem nodeId="1" label="Products">
 
-                    </TreeItem>
-                </TreeView>
-            </a>
+                    <Link to="/admin/products">
+                        <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
+                    </Link>
+
+                    <Link to="/admin/product">
+                        <TreeItem nodeId="3" label="Create" icon={<AddIcon />} />
+                    </Link>
+
+                </TreeItem>
+            </TreeView>
 
             <Link to="/admin/orders">
                 <p>
