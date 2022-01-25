@@ -1,16 +1,22 @@
 import React from 'react'
-import playStore from "../../../images/playstore.png"
-import appStore from '../../../images/Appstore.png'
+// import playStore from "../../../images/playstore.png"
+// import appStore from '../../../images/Appstore.png'
+import { Link } from 'react-router-dom'
 import './Footer.css'
 
 export const Footer = () => {
     return (
         <footer id="footer">
-            <div className='leftFooter'>
-                <h4>DOWNLOAD OUR APP</h4>
+            <div className='rightFooter'>
+                {/* <h4>DOWNLOAD OUR APP</h4>
                 <p>Download App for Android and IOS mobile phone</p>
                 <img src={playStore} alt='playstore' />
-                <img src={appStore} alt='Appstore' />
+                <img src={appStore} alt='Appstore' /> */}
+                <h4>Personalize</h4>
+                <Link to={`/account`}>Account</Link>
+                <Link to={`/cart`}>My Cart</Link>
+                <Link to={`/orders`}>My Orders</Link>
+
             </div>
 
             <div className='midFooter'>

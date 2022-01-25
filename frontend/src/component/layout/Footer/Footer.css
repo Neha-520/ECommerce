@@ -20,17 +20,17 @@ footer {
     font-size: 1vmax;
 }
 
-.leftFooter>p {
+.leftFooter>a {
     text-align: center;
     font-size: 1.2vmax;
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.leftFooter>img {
+/* .leftFooter>img {
     width: 10vmax;
     margin: 1vmax;
     cursor: pointer;
-}
+} */
 
 .midFooter {
     width: 60%;
